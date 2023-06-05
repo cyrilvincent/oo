@@ -15,4 +15,10 @@ class Book:
         return self.price * 1.05
 
 b1 = Book("1","Python pour les nuls",10,nb_page=99)
+b2 = Book("2", "Numpy", 20)
 print(b1.get_net_price())
+print(b1.price, b2.price)
+
+print(b1.get_net_price())
+print(Book.get_net_price(b1))
+
