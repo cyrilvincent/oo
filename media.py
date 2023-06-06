@@ -6,7 +6,7 @@
 # Créer une manière de compter les books en mémoire
 # b1=None, b1 = b2, del(b1)
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -24,28 +24,52 @@ class Author:
     first_name: str
     last_name: str
 
-class Book:
+class Media:
 
     nb = 0
 
-    def __init__(self, id: str, title:str, price: float, publisher: Publisher, type: str="", lang: str="fr-FR", nb_page:int=0, authors: List[Author]=[]):
+    def __init__(self, id: str, title:str, price: float, publisher: Publisher, type: str="", lang: str="fr-FR", authors: List[Author]=[]):
         self.id = id
         self.title = title
         self.type = type
-        self.nb_page = nb_page
         self.price = price
         self.lang = lang
         self.publisher = publisher
         self.authors = authors
 
-        Book.nb += 1
+        Media.nb += 1
+
+    @property
+    def net_price(self) -> float:
+        return self.price * 1.2
+
+    def __del__(self):
+        Media.nb -= 1
+
+    def __repr__(self):
+        return f"Media {self.title} price: {self.price}€"
+
+class Book(Media):
+
+    def __init__(self, id: str, title: str, price: float, publisher: Optional[Publisher], type: str = "", lang: str = "fr-FR",
+                 authors: List[Author] = [], nb_page: int = 0):
+        super().__init__(id,title,price,publisher,type,lang,authors)
+        self.nb_page = nb_page
 
     @property
     def net_price(self) -> float:
         return self.price * 1.05
 
-    def __del__(self):
-        Book.nb -= 1
+class Cd(Media):
+
+    def __init__(self, id: str, title: str, price: float, publisher: Publisher, type: str = "", lang: str = "fr-FR",
+                 authors: List[Author] = [], nb_track: int = 0):
+        super().__init__(id,title,price,publisher,type,lang,authors)
+        self.nb_track = nb_track
+
+
+
+
 
 
 
@@ -67,6 +91,11 @@ print(b1.net_price)
 # print(Book.net_price(b1))
 del b2
 print(p1)
+
+print(b1)
+print(p1)
+
+cd1 = Cd("JH1", "Johnny Best Of", 10, None)
 
 
 
