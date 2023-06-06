@@ -69,33 +69,30 @@ class Cd(Media):
 
 
 
+if __name__ == '__main__':
+    b1 = Book("1", "Python pour les nuls", 10, Publisher("1","ENI","a@a.a"), nb_page=99, authors=[Author("02", "auteur1", "auteur1")])
+    p1 = Publisher("1", "Havas", "a@a.a")
+    my_authors = [Author("03", "author3", "author3"), Author("04", "author4", "author4")]
+    b2 = Book("2", "Numpy", 20, p1, authors=my_authors)
+    print(b1)
+    print(b1.net_price)
+    print(b1.price, b2.price)
+    print(Book.nb)
+    print(Book.nb)
+    print(b1.publisher.name)
+    print(b1.authors[0].last_name)
+    print(len(b2.authors))
 
 
+    print(b1.net_price)
+    # print(Book.net_price(b1))
+    del b2
+    print(p1)
 
+    print(b1)
+    print(p1)
 
-b1 = Book("1", "Python pour les nuls", 10, Publisher("1","ENI","a@a.a"), nb_page=99, authors=[Author("02", "auteur1", "auteur1")])
-p1 = Publisher("1", "Havas", "a@a.a")
-my_authors = [Author("03", "author3", "author3"), Author("04", "author4", "author4")]
-b2 = Book("2", "Numpy", 20, p1, authors=my_authors)
-print(b1)
-print(b1.net_price)
-print(b1.price, b2.price)
-print(Book.nb)
-print(Book.nb)
-print(b1.publisher.name)
-print(b1.authors[0].last_name)
-print(len(b2.authors))
-
-
-print(b1.net_price)
-# print(Book.net_price(b1))
-del b2
-print(p1)
-
-print(b1)
-print(p1)
-
-cd1 = Cd("JH1", "Johnny Best Of", 10, None)
+    cd1 = Cd("JH1", "Johnny Best Of", 10, None)
 
 
 
