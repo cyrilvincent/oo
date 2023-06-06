@@ -26,6 +26,10 @@ class Rectangle:
     def area(self):
         return self.length * self.width
 
+    @property
+    def perimeter(self):
+        return 2 * (self.length + self.width)
+
 class Square(Rectangle):
 
     def __init__(self, side: float, coord:Point):
