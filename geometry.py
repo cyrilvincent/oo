@@ -1,8 +1,14 @@
+from dataclasses import dataclass
+
+@dataclass
 class Rectangle:
 
-    def __init__(self, length: float, width : float):
-        self.length = length
-        self.width = width
+    length: float
+    width: float
+
+    # def __init__(self, length: float, width : float):
+    #     self.length = length
+    #     self.width = width
 
     @property
     def area(self):
