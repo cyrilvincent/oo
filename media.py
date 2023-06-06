@@ -9,6 +9,8 @@ from dataclasses import dataclass
 
 class Book:
 
+    nb = 0
+
     def __init__(self, id: str, title:str, price: float, type: str="", lang: str="fr-FR", nb_page:int=0):
         self.id = id
         self.title = title
@@ -16,13 +18,14 @@ class Book:
         self.nb_page = nb_page
         self.price = price
         self.lang = lang
+        Book.nb += 1
 
     @property
     def net_price(self) -> float:
         return self.price * 1.05
 
     def __del__(self):
-        pass
+        Book.nb -= 1
 
 @dataclass
 class Publisher:
@@ -43,6 +46,10 @@ b1 = Book("1", "Python pour les nuls", 10, nb_page=99)
 b2 = Book("2", "Numpy", 20)
 print(b1.net_price)
 print(b1.price, b2.price)
+print(Book.nb)
+del b2
+print(Book.nb)
+
 
 print(b1.net_price)
 # print(Book.net_price(b1))
