@@ -5,6 +5,7 @@ import geometry as geo
 import bank_account as ba
 import media
 import device
+import csv
 
 class My_Tests(unittest.TestCase):
 
@@ -53,6 +54,17 @@ class My_Tests(unittest.TestCase):
         self.assertEqual(10, len(dev.mesures))
         self.assertEqual(0.01, dev.mesures[1].value)
 
+    def test_csv(self):
+        books = []
+        with open("data/media/books.csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                id = row["id"]
+                title = row["title"]
+                price = float(row["price"])
+                book = media.Book(id,title,price,None)
+                books.append(book)
+        print(books)
 
 
 
