@@ -6,6 +6,7 @@ import bank_account as ba
 import media
 import device
 import csv
+import pickle
 
 class My_Tests(unittest.TestCase):
 
@@ -65,6 +66,13 @@ class My_Tests(unittest.TestCase):
                 book = media.Book(id,title,price,None)
                 books.append(book)
         print(books)
+        with open("data/media/books.pickle", "wb") as f:
+            pickle.dump(books, f)
+
+    def test_pickle(self):
+        with open("data/media/books.pickle", "rb") as f:
+            books = pickle.load(f)
+            print(books)
 
 
 
