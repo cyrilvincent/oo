@@ -3,6 +3,7 @@ from typing import List
 
 import geometry as geo
 import bank_account as ba
+import media
 
 class My_Tests(unittest.TestCase):
 
@@ -36,6 +37,13 @@ class My_Tests(unittest.TestCase):
         l.append(geo.Losange(geo.Point(0, 0)))
         for polygon in l:
             print(polygon.area)
+
+    def test_cart(self):
+        c = media.Cart([])
+        c.add(media.Book("1", "Python", 10, None))
+        c.add(media.Cd("2", "Johnny", 20, None))
+        price = c.net_price
+        self.assertAlmostEqual(26.785, price,delta=1e-3)
 
 
     # def test_rectangle_area_error(self):

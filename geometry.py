@@ -36,7 +36,6 @@ class Rectangle(Polygon):
     #     self.length = length
     #     self.width = width
 
-    @property
     def area(self):
         return self.length * self.width
 

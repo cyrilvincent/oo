@@ -7,6 +7,7 @@
 # b1=None, b1 = b2, del(b1)
 from dataclasses import dataclass
 from typing import List, Optional
+import abc
 
 
 @dataclass
@@ -24,7 +25,7 @@ class Author:
     first_name: str
     last_name: str
 
-class Media:
+class Media(metaclass=abc.ABCMeta):
 
     nb = 0
 
@@ -40,8 +41,8 @@ class Media:
         Media.nb += 1
 
     @property
-    def net_price(self) -> float:
-        return self.price * 1.2
+    @abc.abstractmethod
+    def net_price(self) -> float:...
 
     def __del__(self):
         Media.nb -= 1
@@ -58,14 +59,42 @@ class Book(Media):
 
     @property
     def net_price(self) -> float:
-        return self.price * 1.05
+        return self.price * 1.05 * 0.95 + 0.01
 
 class Cd(Media):
 
-    def __init__(self, id: str, title: str, price: float, publisher: Publisher, type: str = "", lang: str = "fr-FR",
+    def __init__(self, id: str, title: str, price: float, publisher: Publisher|None, type: str = "", lang: str = "fr-FR",
                  authors: List[Author] = [], nb_track: int = 0):
         super().__init__(id,title,price,publisher,type,lang,authors)
         self.nb_track = nb_track
+
+    @property
+    def net_price(self) -> float:
+        return self.price * 1.05 * 0.8
+
+@dataclass
+class Cart:
+
+    medias: List[Media]
+
+    @property
+    def price(self):
+        sum = 0
+        for media in self.medias:
+            sum += media.price
+        return sum
+
+    @property
+    def net_price(self):
+        sum = 0
+        for media in self.medias:
+            sum += media.net_price
+        return sum
+
+    def add(self, media: Media):
+        self.medias.append(media)
+
+
 
 
 
