@@ -1,21 +1,41 @@
 import unittest
+from typing import List
+
 import geometry as geo
 import bank_account as ba
 
 class My_Tests(unittest.TestCase):
 
     def test_rectangle_area(self):
-        r1 = geo.Rectangle(3,2,geo.Point(0,0))
+        r1 = geo.Rectangle(geo.Point(0,0),3,2)
         self.assertEqual(6, r1.area)
 
     def test_rectangle_perimeter(self):
-        r1 = geo.Rectangle(3,2,geo.Point(0,0))
+        r1 = geo.Rectangle(geo.Point(0,0),3,2)
         self.assertEqual(10, r1.perimeter)
+
+    def test_square_area(self):
+        r1 = geo.Square(3, geo.Point(0,0))
+        self.assertEqual(9, r1.area)
 
     def test_account_robustness(self):
         a1 = ba.Account("01")
         with self.assertRaises(ValueError):
             a1.credit(-100)
+
+    def test_abstract(self):
+        # p = geo.Polygon(geo.Point(0,0))
+        # print(p)
+        l = geo.Losange(geo.Point(0,0))
+        print(l)
+
+    def test_polymorphisme(self):
+        l: List[geo.Polygon] = []
+        l.append(geo.Rectangle(geo.Point(0,0),3,2))
+        l.append(geo.Square(3, geo.Point(0, 0)))
+        l.append(geo.Losange(geo.Point(0, 0)))
+        for polygon in l:
+            print(polygon.area)
 
 
     # def test_rectangle_area_error(self):

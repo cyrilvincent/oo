@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import abc
 
 
 @dataclass
@@ -10,13 +11,26 @@ class Point:
 class Point3d(Point):
     z: float
 
+@dataclass
+class Polygon(metaclass=abc.ABCMeta):
+
+    coord: Point
+
+    @property
+    @abc.abstractmethod
+    def area(self):...
 
 @dataclass
-class Rectangle:
+class Losange(Polygon):
+
+    def area(self):
+        pass
+
+@dataclass
+class Rectangle(Polygon):
 
     length: float
     width: float
-    coord: Point
 
     # def __init__(self, length: float, width : float):
     #     self.length = length
@@ -36,7 +50,7 @@ class Square(Rectangle):
         # self.width = side
         # self.length = side
         # self.coord = coord
-        super().__init__(side, side, coord)
+        super().__init__(coord, side, side)
 
 class TriangleRectangle(Rectangle):
 
@@ -44,10 +58,3 @@ class TriangleRectangle(Rectangle):
     def area(self):
         return super().area/2
 
-r1 = Rectangle(3, 2, Point(0,0))
-print(r1.area)
-
-p3d = Point3d(1,2,3)
-
-s1 = Square(3, Point(0,0))
-print(s1.__dir__())
