@@ -4,6 +4,7 @@ from typing import List
 import geometry as geo
 import bank_account as ba
 import media
+import device
 
 class My_Tests(unittest.TestCase):
 
@@ -44,6 +45,15 @@ class My_Tests(unittest.TestCase):
         c.add(media.Cd("2", "Johnny", 20, None))
         price = c.net_price
         self.assertAlmostEqual(26.785, price,delta=1e-3)
+
+    def test_device(self):
+        dev = device.VoltmetreMockB()
+        service = device.Service(dev)
+        service.start(10)
+        self.assertEqual(10, len(dev.mesures))
+        self.assertEqual(0.01, dev.mesures[1].value)
+
+
 
 
     # def test_rectangle_area_error(self):
