@@ -9,7 +9,7 @@ import csv
 import pickle
 import jsonpickle
 import openpyxl
-import numpy
+import repositories
 
 class My_Tests(unittest.TestCase):
 
@@ -102,4 +102,15 @@ class My_Tests(unittest.TestCase):
         instance = media.Singleton.get_instance()
         instance2 = media.Singleton.get_instance()
         self.assertIs(instance, instance2)
+
+    def test_repository(self):
+        repo = repositories.BookCsvRepository("data/media/books.csv")
+        repo.load()
+        book = repo.get_by_id("1")
+        self.assertIsNotNone(book)
+        self.assertEqual("Python", book.title)
+        repo_pickle = repositories.BookPickleRepository("data/media/books.pickle")
+        repo_pickle.medias = repo.medias
+        repo_pickle.save()
+
 
