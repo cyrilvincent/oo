@@ -94,6 +94,19 @@ class Cart:
     def add(self, media: Media):
         self.medias.append(media)
 
+class Singleton:
+
+    singleton: Cart = None
+
+    def __init__(self):
+        raise ValueError
+
+    @staticmethod
+    def get_instance():
+        if Singleton.singleton is None:
+            Singleton.singleton = Cart([])
+        return Singleton.singleton
+
 
 
 

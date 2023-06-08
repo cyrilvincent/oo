@@ -7,6 +7,9 @@ import media
 import device
 import csv
 import pickle
+import jsonpickle
+import openpyxl
+import numpy
 
 class My_Tests(unittest.TestCase):
 
@@ -74,8 +77,29 @@ class My_Tests(unittest.TestCase):
             books = pickle.load(f)
             print(books)
 
+    def test_jsonpickle(self):
+        books = []
+        with open("data/media/books.csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                id = row["id"]
+                title = row["title"]
+                price = float(row["price"])
+                book = media.Book(id,title,price,None)
+                books.append(book)
+        print(books)
+        with open("data/media/books2.json", "w") as f:
+            s = jsonpickle.dumps(books)
+            f.write(s)
 
+    def test_xl(self):
+        workbook = openpyxl.open("data/media/books.xlsx")
+        sheet = workbook.worksheets[0]
+        title = sheet.cell(2,2).value
+        self.assertEqual("Python", title)
 
-    # def test_rectangle_area_error(self):
-    #     r1 = geo.Rectangle(3,2,geo.Point(0,0))
-    #     self.assertEqual(5, r1.area)
+    def test_singleton(self):
+        instance = media.Singleton.get_instance()
+        instance2 = media.Singleton.get_instance()
+        self.assertIs(instance, instance2)
+
