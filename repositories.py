@@ -67,7 +67,7 @@ class BookGenericRepository(AbstractRepository, metaclass=abc.ABCMeta):
     def update(self, media: media.Media):
         m = self.get_by_id(media.id)
         self.delete(m)
-        self.create(m)
+        self.create(media)
 
 
 class BookCsvRepository(BookGenericRepository):
