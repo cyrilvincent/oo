@@ -53,10 +53,10 @@ class BookGenericRepository(AbstractRepository, metaclass=abc.ABCMeta):
         return None
 
     def get_by_price(self, price: float) -> List[media.Media]:
-        pass
+        return [m for m in self.medias if m.price <= price]
 
     def get_by_title(self, title: str) -> List[media.Media]:
-        pass
+        return [m for m in self.medias if m.title.upper() == title.upper()]
 
     def create(self, media: media.Media):
         self.medias.append(media)
