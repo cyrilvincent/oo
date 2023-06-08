@@ -94,6 +94,7 @@ class Cart:
     def add(self, media: Media):
         self.medias.append(media)
 
+
 class Singleton:
 
     singleton: Cart = None
