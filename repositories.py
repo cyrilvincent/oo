@@ -125,10 +125,12 @@ class BookPickleRepository(AbstractRepository):
 class MediaService(threading.Thread):
 
     repo = BookCsvRepository(config.csv_path)
+    lock = threading.RLock()
 
     def __init__(self, text: str):
         super().__init__()
-        MediaService.repo.load()
+        with MediaService.lock:
+            MediaService.repo.load()
         self.text = text
         self.result: List[media.Media] | None = None
 
