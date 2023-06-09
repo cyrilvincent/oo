@@ -113,4 +113,12 @@ class My_Tests(unittest.TestCase):
         repo_pickle.medias = repo.medias
         repo_pickle.save()
 
+    def test_isbn(self):
+        s = "978-0-13-601970-1"
+        book = media.Book(s, "", 0, None)
+        self.assertTrue(book.validate_isbn(s))
+        s = "9780-13-601-970-1"
+        self.assertFalse(book.validate_isbn(s))
+
+
 

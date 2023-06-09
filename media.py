@@ -8,6 +8,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
 import abc
+import re
 
 
 @dataclass
@@ -50,11 +51,22 @@ class Media(metaclass=abc.ABCMeta):
     def __repr__(self):
         return f"Media {self.title} price: {self.price}€"
 
+    def validate_isbn(self, s: str):
+        regex = r"^\d{3}-\d-\d{2}-\d{6}-\d$"
+        if re.match(regex, s):
+            return True
+        else:
+            return False
+
 class Book(Media):
 
     def __init__(self, id: str, title: str, price: float, publisher: Optional[Publisher], type: str = "", lang: str = "fr-FR",
                  authors: List[Author] = [], nb_page: int = 0):
-        super().__init__(id,title,price,publisher,type,lang,authors)
+        # if self.validate_isbn(id):
+        #     super().__init__(id,title,price,publisher,type,lang,authors)
+        # else:
+        #     raise ValueError(f"Bad isbn: {id}")
+        super().__init__(id, title, price, publisher, type, lang, authors)
         self.nb_page = nb_page
 
     @property
