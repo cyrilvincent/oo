@@ -4,6 +4,9 @@ from typing import List
 import media
 import abc
 import csv
+import config
+import re
+import threading
 
 class AbstractRepository(metaclass=abc.ABCMeta):
 
@@ -56,7 +59,13 @@ class BookGenericRepository(AbstractRepository, metaclass=abc.ABCMeta):
         return [m for m in self.medias if m.price <= price]
 
     def get_by_title(self, title: str) -> List[media.Media]:
-        return [m for m in self.medias if m.title.upper() == title.upper()]
+        return [m for m in self.medias if self._match_title(m, title)]
+
+    def _match_title(self, m: media.Media, title: str):
+        if re.search(title.upper(), m.title.upper()):
+            return True
+        else:
+            return False
 
     def create(self, media: media.Media):
         self.medias.append(media)
@@ -112,4 +121,18 @@ class BookPickleRepository(AbstractRepository):
     def load(self):
         with open(self.uri, "rb") as f:
             self.medias = pickle.load(f)
+
+class MediaService(threading.Thread):
+
+    repo = BookCsvRepository(config.csv_path)
+
+    def __init__(self, text: str):
+        super().__init__()
+        MediaService.repo.load()
+        self.text = text
+        self.result: List[media.Media] | None = None
+
+    def run(self):
+        self.result = MediaService.repo.get_by_title(self.text)
+
 

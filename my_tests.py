@@ -120,5 +120,12 @@ class My_Tests(unittest.TestCase):
         s = "9780-13-601-970-1"
         self.assertFalse(book.validate_isbn(s))
 
+    def test_service(self):
+        service = repositories.MediaService("py")
+        service.start()
+        service.join()
+        self.assertEqual(3, len(service.result))
+
+
 
 
