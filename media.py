@@ -25,6 +25,7 @@ class Book:
 # Créer la dataclass Author
 # Créer la dataclass Publisher
 # Tester
+    nb_book = 0
 
     def __init__(self, id: str,
                  title: str,
@@ -40,13 +41,14 @@ class Book:
         self.nb_page = nb_page
         self.publisher = publisher
         self.authors = authors
+        Book.nb_book += 1
 
     @property
     def net_price(self):
         return self.price * 1.055
 
     def __del__(self):
-        print("Je suis appelé en dernier")
+        Book.nb_book -= 1
 
 b1 = Book("001", "Python", 10)
 print(b1)
@@ -65,6 +67,10 @@ print(a1)
 
 b3 = Book("1234", "Les misérables", 5, authors=[])
 b3.authors.append(Author("toto", "titi"))
+
+print(f"Nb book: {Book.nb_book}")
+del b3
+print(f"Nb book: {Book.nb_book}")
 
 
 
