@@ -1,5 +1,7 @@
 import datetime
 from dataclasses import dataclass
+from typing import List
+
 
 @dataclass
 class Author:
@@ -24,12 +26,20 @@ class Book:
 # Créer la dataclass Publisher
 # Tester
 
-    def __init__(self, id: str, title: str, price: float,  date: datetime.datetime = datetime.datetime.now(), nb_page: int = 0):
+    def __init__(self, id: str,
+                 title: str,
+                 price: float,
+                 date: datetime.datetime = datetime.datetime.now(),
+                 nb_page: int = 0,
+                 publisher: Publisher = Publisher("", ""),
+                 authors: List[Author] = []):
         self.id = id
         self.title = title
         self.price = price
         self.date = date
         self.nb_page = nb_page
+        self.publisher = publisher
+        self.authors = authors
 
     @property
     def net_price(self):
@@ -38,7 +48,7 @@ class Book:
 b1 = Book("001", "Python", 10)
 print(b1)
 print(f"Book price: {b1.net_price:.2f}")
-b2 = Book("002", "Numpy", 20)
+b2 = Book("002", "Numpy", 20, publisher=Publisher("123", "ENI"))
 b2.price+=1
 print(b2.price)
 print(b2)
@@ -49,6 +59,9 @@ print(b1.net_price)
 
 a1 = Author("Victor", "Hugo")
 print(a1)
+
+b3 = Book("1234", "Les misérables", 5, authors=[a1])
+
 
 
 
