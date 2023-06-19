@@ -1,3 +1,14 @@
+import datetime
+from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class Transaction:
+
+    date : datetime.datetime
+    amount: float
+
 class User:
 
     def __init__(self, last_name: str, first_name: str):
@@ -10,6 +21,7 @@ class BankAccount:
     def __init__(self, id: str):
         self.id = id
         self._balance = 0
+        self.transactions: List[Transaction] = []
 
     def credit(self, amount: float):
         self._balance += amount

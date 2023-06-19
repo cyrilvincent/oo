@@ -1,6 +1,17 @@
 import datetime
 from dataclasses import dataclass
 
+@dataclass
+class Author:
+
+    first_name: str
+    last_name: str
+
+@dataclass
+class Publisher:
+
+    id: str
+    name: str
 
 class Book:
 
@@ -20,20 +31,24 @@ class Book:
         self.date = date
         self.nb_page = nb_page
 
+    @property
     def net_price(self):
         return self.price * 1.055
 
 b1 = Book("001", "Python", 10)
 print(b1)
-print(f"Book price: {b1.net_price():.2f}")
+print(f"Book price: {b1.net_price:.2f}")
 b2 = Book("002", "Numpy", 20)
 b2.price+=1
 print(b2.price)
 print(b2)
 
-print(b1.net_price())
+print(b1.net_price)
 # <=>
-print(Book.net_price(b1))
+# print(Book.net_price(b1))
+
+a1 = Author("Victor", "Hugo")
+print(a1)
 
 
 
