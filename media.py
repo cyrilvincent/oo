@@ -45,6 +45,9 @@ class Book:
     def net_price(self):
         return self.price * 1.055
 
+    def __del__(self):
+        print("Je suis appelé en dernier")
+
 b1 = Book("001", "Python", 10)
 print(b1)
 print(f"Book price: {b1.net_price:.2f}")
@@ -60,7 +63,8 @@ print(b1.net_price)
 a1 = Author("Victor", "Hugo")
 print(a1)
 
-b3 = Book("1234", "Les misérables", 5, authors=[a1])
+b3 = Book("1234", "Les misérables", 5, authors=[])
+b3.authors.append(Author("toto", "titi"))
 
 
 
