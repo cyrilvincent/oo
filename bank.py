@@ -9,19 +9,21 @@ class BankAccount:
 
     def __init__(self, id: str):
         self.id = id
-        self.balance = 0
+        self._balance = 0
 
     def credit(self, amount: float):
-        self.balance += amount
+        self._balance += amount
 
     def debit(self, amount: float):
-        self.balance -= amount
+        self._balance -= amount
 
 
 cyril = User("Vincent", "Cyril")
 print(cyril)
 print(cyril.last_name)
 account = BankAccount("001")
+account._balance += 100000
+
 print(account.balance)
 account.credit(100)
 print(account.balance)

@@ -1,10 +1,17 @@
 import datetime
+from dataclasses import dataclass
+
 
 class Book:
 
 # Créer le constructeur, les attributs
 # net_price = price * 1.055
 # tester
+
+# Transformer net_price en property
+# Créer la dataclass Author
+# Créer la dataclass Publisher
+# Tester
 
     def __init__(self, id: str, title: str, price: float,  date: datetime.datetime = datetime.datetime.now(), nb_page: int = 0):
         self.id = id
@@ -17,7 +24,16 @@ class Book:
         return self.price * 1.055
 
 b1 = Book("001", "Python", 10)
+print(b1)
 print(f"Book price: {b1.net_price():.2f}")
+b2 = Book("002", "Numpy", 20)
+b2.price+=1
+print(b2.price)
+print(b2)
+
+print(b1.net_price())
+# <=>
+print(Book.net_price(b1))
 
 
 
