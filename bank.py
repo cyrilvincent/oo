@@ -24,20 +24,23 @@ class BankAccount:
         self.transactions: List[Transaction] = []
 
     def credit(self, amount: float):
-        self._balance += amount
+        if amount >= 0:
+            self._balance += amount
+        else:
+            raise ValueError("Amount < 0")
 
     def debit(self, amount: float):
         self._balance -= amount
 
 
-cyril = User("Vincent", "Cyril")
-print(cyril)
-print(cyril.last_name)
-account = BankAccount("001")
-account._balance += 100000
-
-print(account.balance)
-account.credit(100)
-print(account.balance)
-account.debit(30)
-print(account.balance)
+# cyril = User("Vincent", "Cyril")
+# print(cyril)
+# print(cyril.last_name)
+# account = BankAccount("001")
+# account._balance += 100000
+#
+# print(account.balance)
+# account.credit(100)
+# print(account.balance)
+# account.debit(30)
+# print(account.balance)

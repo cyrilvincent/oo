@@ -87,30 +87,30 @@ class Cd(Media):
         super().__init__(id, title,price,date,publisher,authors)
         self.nb_track = nb_track
 
-b1 = Book("001", "Python", 10)
-print(b1)
-print(f"Book price: {b1.net_price}")
-b2 = Book("002", "Numpy", 20, publisher=Publisher("123", "ENI"))
-b2.price+=1
-print(b2.price)
-print(b2)
-
-print(b1.net_price)
-# <=>
-# print(Book.net_price(b1))
-
-a1 = Author("Victor", "Hugo")
-print(a1)
-
-b3 = Book("1234", "Les misérables", 5, authors=[])
-b3.authors.append(Author("toto", "titi"))
-
-print(f"Nb media: {Media.nb_media}")
-del b3
-print(f"Nb media: {Media.nb_media}")
-
-cd1 = Cd("0014", "Johnny", 10, nb_track=9)
-print(cd1)
+# b1 = Book("001", "Python", 10)
+# print(b1)
+# print(f"Book price: {b1.net_price}")
+# b2 = Book("002", "Numpy", 20, publisher=Publisher("123", "ENI"))
+# b2.price+=1
+# print(b2.price)
+# print(b2)
+#
+# print(b1.net_price)
+# # <=>
+# # print(Book.net_price(b1))
+#
+# a1 = Author("Victor", "Hugo")
+# print(a1)
+#
+# b3 = Book("1234", "Les misérables", 5, authors=[])
+# b3.authors.append(Author("toto", "titi"))
+#
+# print(f"Nb media: {Media.nb_media}")
+# del b3
+# print(f"Nb media: {Media.nb_media}")
+#
+# cd1 = Cd("0014", "Johnny", 10, nb_track=9)
+# print(cd1)
 
 
 
