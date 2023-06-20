@@ -67,8 +67,9 @@ class Book(Media):
         self.nb_page = nb_page
         Book.nb_book += 1
 
+    @property
     def net_price(self):
-        return self.price * 1.055
+        return self.price * 1.055 * 0.95 + 0.01
 
     def __del__(self):
         super().__del__()
@@ -86,6 +87,32 @@ class Cd(Media):
                  ):
         super().__init__(id, title,price,date,publisher,authors)
         self.nb_track = nb_track
+
+    @property
+    def net_price(self):
+        return self.price * 1.2 * 0.5
+
+class Cart:
+
+    def __init__(self):
+        self.medias:List[Media] = []
+
+    def add(self, media: Media):
+        self.medias.append(media)
+
+    def remove(self, media: Media):
+        self.medias.remove(media)
+
+    @property
+    def count(self):
+        return len(self.medias)
+
+    @property
+    def total_net_price(self) -> float:
+        total = 0
+        for m in self.medias:
+            total += m.net_price
+        return total
 
 # b1 = Book("001", "Python", 10)
 # print(b1)

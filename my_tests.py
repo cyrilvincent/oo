@@ -29,7 +29,7 @@ class DemoTest(unittest.TestCase):
         ]
         total = 0
         for m in medias:
-            total += m.net_price()
+            total += m.net_price
 
     def test_cart(self):
         cart = media.Cart()
@@ -38,6 +38,6 @@ class DemoTest(unittest.TestCase):
         cd1 = media.Cd("1", "Johnny", 20)
         cart.add(cd1)
         total = cart.total_net_price
-        self.assertAlmostEqual(20.1234, total, delta=1e-3)
+        self.assertAlmostEqual(22.0325, total, delta=1e-3)
 
 
