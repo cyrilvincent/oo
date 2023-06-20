@@ -2,6 +2,7 @@ import unittest
 import geometry as geo
 import media
 import bank
+import csv
 
 class DemoTest(unittest.TestCase):
 
@@ -39,5 +40,17 @@ class DemoTest(unittest.TestCase):
         cart.add(cd1)
         total = cart.total_net_price
         self.assertAlmostEqual(22.0325, total, delta=1e-3)
+
+    def test_file(self):
+        with open("data/house/house.csv", "r") as f:
+            reader = csv.DictReader(f)
+            total = 0
+            count = 0
+            for row in reader:
+                total += float(row["loyer"])
+                count += 1
+            print(total / count)
+            # calculer le prix /m² moyen
+
 
 
