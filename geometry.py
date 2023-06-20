@@ -50,8 +50,8 @@ class TriangleRectangle(Rectangle):
 
 
 
-r1 = Rectangle(3,2, Point(5,-2))
-r1.coord.move(1,2)
-print(r1.area)
-p3d = Point3d(1,2,3)
-print(r1)
+# r1 = Rectangle(3,2, Point(5,-2))
+# r1.coord.move(1,2)
+# print(r1.area)
+# p3d = Point3d(1,2,3)
+# print(r1)

@@ -53,6 +53,8 @@ class Media:
 
 class Book(Media):
 
+    nb_book = 0
+
     def __init__(self, id: str,
                  title: str,
                  price: float,
@@ -63,9 +65,14 @@ class Book(Media):
                  ):
         super().__init__(id, title,price,date,publisher,authors)
         self.nb_page = nb_page
+        Book.nb_book += 1
 
     def net_price(self):
         return self.price * 1.055
+
+    def __del__(self):
+        super().__del__()
+        Book.nb_book -= 1
 
 class Cd(Media):
 
