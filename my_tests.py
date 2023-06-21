@@ -3,6 +3,7 @@ import geometry as geo
 import media
 import bank
 import csv
+import pickle
 
 class DemoTest(unittest.TestCase):
 
@@ -40,6 +41,14 @@ class DemoTest(unittest.TestCase):
         cart.add(cd1)
         total = cart.total_net_price
         self.assertAlmostEqual(22.0325, total, delta=1e-3)
+        with open("data/media/media.pickle", "wb") as f:
+            pickle.dump(cart, f)
+
+    def test_pickle_load(self):
+        with open("data/media/media.pickle", "rb") as f:
+            cart = pickle.load(f)
+            self.assertEqual(2, len(cart.medias))
+
 
     def test_file(self):
         with open("data/house/house.csv", "r") as f:
@@ -47,10 +56,10 @@ class DemoTest(unittest.TestCase):
             total = 0
             count = 0
             for row in reader:
-                total += float(row["loyer"])
+                total += float(row["loyer"]) / float(row["surface"])
                 count += 1
             print(total / count)
-            # calculer le prix /m² moyen
+            # calculer le prix /m² moyen dans un test
 
 
 
