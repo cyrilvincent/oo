@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from typing import List
 import csv
 import pickle
+import xml.dom.minidom as dom
+import jsonpickle
 
 
 @dataclass
@@ -144,6 +146,42 @@ class MediaService:
             f.write("id,title,price\n")
             for m in self.medias:
                 f.write(f"{m.id},{m.title},{m.price}\n")
+
+    def save_json(self, path: str):
+        with open(path, "w") as f:
+            json = jsonpickle.encode(self.medias, unpicklable=False)
+            f.write(json)
+
+    def load_json(self, path: str):
+        with open(path, "r") as f:
+            s = f.read()
+            self.medias = jsonpickle.decode(s)
+
+    def clear(self):
+        self.medias = []
+
+    def load_xml(self, path: str):
+        document: dom.Document = dom.parse(path)
+        books = document.getElementsByTagName("book")
+        for book in books:
+            id = book.getAttribute("id")
+            title = book.getAttribute("title")
+            price = float(book.getAttribute("price"))
+            b = Book(id, title, price)
+            self.medias.append(b)
+
+    def save_xml(self, path: str):
+        document = dom.Document()
+        books = document.createElement("books")
+        document.appendChild(books)
+        for m in self.medias:
+            book = document.createElement("book")
+            book.setAttribute("id", m.id)
+            book.setAttribute("title", m.title)
+            book.setAttribute("price", str(m.price))
+            books.appendChild(book)
+        with open(path, "w") as f:
+            document.writexml(f, addindent="\t", newl="\n", )
 
 
 # b1 = Book("001", "Python", 10)

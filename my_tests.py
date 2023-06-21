@@ -73,6 +73,22 @@ class DemoTest(unittest.TestCase):
         self.assertEqual(4, len(service.medias))
         self.assertEqual("Python", service.medias[0].title)
         service.save_csv("data/media/books2.csv")
+        a1 = media.Author("Cyril", "Vincent")
+        service.medias[0].authors.append(a1)
+        service.save_json("data/media/books2.json")
+        service.load_json("data/media/books2.json")
+        self.assertEqual(4, len(service.medias))
+
+    def test_load_xml(self):
+        service = media.MediaService()
+        service.load_xml("data/media/books.xml")
+        self.assertEqual(2, len(service.medias))
+        self.assertEqual("Python", service.medias[0].title)
+
+    def test_save_xml(self):
+        service = media.MediaService()
+        service.load_pickle("data/media/books.pickle")
+        service.save_xml("data/media/books.xml")
 
 
 

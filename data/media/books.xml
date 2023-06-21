@@ -1,5 +1,7 @@
 <?xml version="1.0" ?>
 <books>
-	<book id="1" price="9.99" title="Python"/>
-	<book id="2" price="19.99" title="Jython"/>
+	<book id="1" title="Python" price="9.99"/>
+	<book id="2" title="Numpy" price="19.0"/>
+	<book id="3" title="Java" price="10.0"/>
+	<book id="4" title="Python 3" price="12.0"/>
 </books>
