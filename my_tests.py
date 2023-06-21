@@ -49,7 +49,6 @@ class DemoTest(unittest.TestCase):
             cart = pickle.load(f)
             self.assertEqual(2, len(cart.medias))
 
-
     def test_file(self):
         with open("data/house/house.csv", "r") as f:
             reader = csv.DictReader(f)
