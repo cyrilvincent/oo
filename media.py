@@ -5,6 +5,7 @@ import csv
 import pickle
 import xml.dom.minidom as dom
 import jsonpickle
+import openpyxl
 
 
 @dataclass
@@ -182,6 +183,16 @@ class MediaService:
             books.appendChild(book)
         with open(path, "w") as f:
             document.writexml(f, addindent="\t", newl="\n", )
+
+    def load_xl(self, path: str):
+        wb = openpyxl.open(path)
+        sheet = wb.worksheets[0]
+        for i in range(2, sheet.max_row + 1):
+            id = sheet.cell(i, 1).value
+            title = sheet.cell(i, 2).value
+            price = sheet.cell(i, 3).value
+            b = Book(id, title, price)
+            self.medias.append(b)
 
 
 # b1 = Book("001", "Python", 10)

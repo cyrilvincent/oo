@@ -90,6 +90,11 @@ class DemoTest(unittest.TestCase):
         service.load_pickle("data/media/books.pickle")
         service.save_xml("data/media/books.xml")
 
+    def test_load_xl(self):
+        service = media.MediaService()
+        service.load_xl("data/media/books.xlsx")
+        self.assertEqual(2, len(service.medias))
+
 
 
 
