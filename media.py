@@ -1,6 +1,8 @@
 import datetime
 from dataclasses import dataclass
 from typing import List
+import csv
+import pickle
 
 
 @dataclass
@@ -113,6 +115,36 @@ class Cart:
         for m in self.medias:
             total += m.net_price
         return total
+
+class MediaService:
+
+    def __init__(self):
+        self.medias: List[Media] = []
+
+    def load_csv(self, path: str):
+        with open(path, "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                id = row["id"]
+                title = row["title"]
+                price = float(row["price"])
+                b = Book(id, title, price)
+                self.medias.append(b)
+
+    def save_pickle(self, path: str):
+        with open(path, "wb") as f:
+            pickle.dump(self.medias, f)
+
+    def load_pickle(self, path: str):
+        with open(path, "rb") as f:
+            self.medias = pickle.load(f)
+
+    def save_csv(self, path: str):
+        with open(path, "w") as f:
+            f.write("id,title,price\n")
+            for m in self.medias:
+                f.write(f"{m.id},{m.title},{m.price}\n")
+
 
 # b1 = Book("001", "Python", 10)
 # print(b1)

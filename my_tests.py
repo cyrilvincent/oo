@@ -60,5 +60,20 @@ class DemoTest(unittest.TestCase):
             print(total / count)
             # calculer le prix /m² moyen dans un test
 
+    def test_load_csv(self):
+        service = media.MediaService()
+        service.load_csv("data/media/books.csv")
+        self.assertEqual(4, len(service.medias))
+        self.assertEqual("Python", service.medias[0].title)
+        service.save_pickle("data/media/books.pickle")
+
+    def test_load_pickle(self):
+        service = media.MediaService()
+        service.load_pickle("data/media/books.pickle")
+        self.assertEqual(4, len(service.medias))
+        self.assertEqual("Python", service.medias[0].title)
+        service.save_csv("data/media/books2.csv")
+
+
 
 
