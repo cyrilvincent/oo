@@ -4,6 +4,7 @@ import media
 import bank
 import csv
 import pickle
+import demo_singleton
 
 class DemoTest(unittest.TestCase):
 
@@ -94,6 +95,12 @@ class DemoTest(unittest.TestCase):
         service = media.MediaService()
         service.load_xl("data/media/books.xlsx")
         self.assertEqual(2, len(service.medias))
+
+    def test_singleton(self):
+        instance = demo_singleton.MediaServiceSingleton.get_instance()
+        self.assertIsNotNone(instance)
+        instance2 = demo_singleton.MediaServiceSingleton.get_instance()
+        self.assertIs(instance, instance2)
 
 
 
