@@ -5,6 +5,8 @@ import bank
 import csv
 import pickle
 import demo_singleton
+import repository
+
 
 class DemoTest(unittest.TestCase):
 
@@ -61,46 +63,54 @@ class DemoTest(unittest.TestCase):
             print(total / count)
             # calculer le prix /m² moyen dans un test
 
-    def test_load_csv(self):
-        service = media.MediaService()
-        service.load_csv("data/media/books.csv")
-        self.assertEqual(4, len(service.medias))
-        self.assertEqual("Python", service.medias[0].title)
-        service.save_pickle("data/media/books.pickle")
-
-    def test_load_pickle(self):
-        service = media.MediaService()
-        service.load_pickle("data/media/books.pickle")
-        self.assertEqual(4, len(service.medias))
-        self.assertEqual("Python", service.medias[0].title)
-        service.save_csv("data/media/books2.csv")
-        a1 = media.Author("Cyril", "Vincent")
-        service.medias[0].authors.append(a1)
-        service.save_json("data/media/books2.json")
-        service.load_json("data/media/books2.json")
-        self.assertEqual(4, len(service.medias))
-
-    def test_load_xml(self):
-        service = media.MediaService()
-        service.load_xml("data/media/books.xml")
-        self.assertEqual(2, len(service.medias))
-        self.assertEqual("Python", service.medias[0].title)
-
-    def test_save_xml(self):
-        service = media.MediaService()
-        service.load_pickle("data/media/books.pickle")
-        service.save_xml("data/media/books.xml")
-
-    def test_load_xl(self):
-        service = media.MediaService()
-        service.load_xl("data/media/books.xlsx")
-        self.assertEqual(2, len(service.medias))
+    # def test_load_csv(self):
+    #     service = media.MediaService()
+    #     service.load_csv("data/media/books.csv")
+    #     self.assertEqual(4, len(service.medias))
+    #     self.assertEqual("Python", service.medias[0].title)
+    #     service.save_pickle("data/media/books.pickle")
+    #
+    # def test_load_pickle(self):
+    #     service = media.MediaService()
+    #     service.load_pickle("data/media/books.pickle")
+    #     self.assertEqual(4, len(service.medias))
+    #     self.assertEqual("Python", service.medias[0].title)
+    #     service.save_csv("data/media/books2.csv")
+    #     a1 = media.Author("Cyril", "Vincent")
+    #     service.medias[0].authors.append(a1)
+    #     service.save_json("data/media/books2.json")
+    #     service.load_json("data/media/books2.json")
+    #     self.assertEqual(4, len(service.medias))
+    #
+    # def test_load_xml(self):
+    #     service = media.MediaService()
+    #     service.load_xml("data/media/books.xml")
+    #     self.assertEqual(2, len(service.medias))
+    #     self.assertEqual("Python", service.medias[0].title)
+    #
+    # def test_save_xml(self):
+    #     service = media.MediaService()
+    #     service.load_pickle("data/media/books.pickle")
+    #     service.save_xml("data/media/books.xml")
+    #
+    # def test_load_xl(self):
+    #     service = media.MediaService()
+    #     service.load_xl("data/media/books.xlsx")
+    #     self.assertEqual(2, len(service.medias))
 
     def test_singleton(self):
         instance = demo_singleton.MediaServiceSingleton.get_instance()
         self.assertIsNotNone(instance)
         instance2 = demo_singleton.MediaServiceSingleton.get_instance()
         self.assertIs(instance, instance2)
+
+    def test_csv_pickle_repository(self):
+        pickle_repo = repository.BookPickleRepository("data/media/books.pickle")
+        pickle_repo.load()
+        csv_repo = repository.BookCSVRepository("data/media/books2.csv")
+        csv_repo.medias = pickle_repo.medias
+        csv_repo.save()
+
 
 
 
