@@ -69,20 +69,20 @@ def infinite():
 # l2 = my_range(1000000000000000000000000000000000000000000000000000000000000000000)
 l2 = infinite()
 res = filter(lambda x: x % 2 == 0, l2)
-# res = filter(is_prime, res)
+res = filter(is_prime, res)
 res = map(lambda x: x ** 2, res)
-# for x in res:
-#     print(x)
+for x in res:
+    print(x)
 
 # filter + map = generator
 res = (x ** 2 for x in l2 if x % 2 == 0)
 print(res)
-print(len(res))
+# print(len(res))
 for x in res:
     print(x)
 
-l3 = range(100)
-res = list((x ** 2 for x in l2 if x % 2 == 0))
-# <=>
-res = [x ** 2 for x in l2 if x % 2 == 0]
+# l3 = range(100)
+# res = list((x ** 2 for x in l2 if x % 2 == 0))
+# # <=>
+# res = [x ** 2 for x in l2 if x % 2 == 0]
 
