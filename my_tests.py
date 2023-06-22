@@ -1,4 +1,6 @@
 import unittest
+
+import config
 import geometry as geo
 import media
 import bank
@@ -125,7 +127,15 @@ class DemoTest(unittest.TestCase):
         self.assertTrue(res)
         s.pay()
 
+    def test_yield(self):
+        repo = repository.BookCSVYieldRepository(config.default_path)
+        medias = list(repo.medias)
+        self.assertTrue(len(medias) > 0)
 
+    def test_yield_title(self):
+        repo = repository.BookCSVYieldRepository(config.default_path)
+        medias = list(repo.get_by_title("python"))
+        self.assertTrue(len(medias) > 0)
 
 
 

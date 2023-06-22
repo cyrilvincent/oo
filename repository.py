@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Generator, Iterable
 import csv
 
 import jsonpickle
@@ -17,22 +17,26 @@ class AbstractRepository(metaclass=abc.ABCMeta):
         self.medias = []
 
     def get_all(self) -> List[media.Media]:
+        self.medias = self.load()
         return self.medias
 
     def get_by_id(self, id: str) -> media.Media | None:
-        for m in self.medias:
-            if m.id == id:
-                return m
-        return None
+        self.medias = self.load()
+        res = [m for m in self.medias if m.id == id][0]
+        # if len(res) == 1:
+        #     return res[0]
+        # elif len(res) == 0:
+        #     return None
+        # else:
+        #     raise ValueError("Id duplicated")
+        return res[0] if len(res) > 0 else None
 
-    def get_by_title(self, title:str) -> List[media.Media]:
-        res = []
-        for m in self.medias:
-            if title.upper() in m.title.upper():
-                res.append(m)
-        return res
+    def get_by_title(self, title:str) -> Iterable[media.Media]:
+        self.medias = self.load()
+        return (m for m in self.medias if title.upper() in m.title.upper())
 
     def get_by_price(self, price: float) -> List[media.Media]:
+        self.medias = self.load()
         res = []
         for m in self.medias:
             if m.price <= price:
@@ -73,6 +77,28 @@ class BookCSVRepository(AbstractRepository):
             f.write("id,title,price\n")
             for m in self.medias:
                 f.write(f"{m.id},{m.title},{m.price}\n")
+
+class BookCSVYieldRepository(AbstractRepository):
+
+    def __init__(self, path: str):
+        super().__init__(path)
+
+    def load(self) -> Iterable[media.Media]:
+        with open(self.path, "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                id = row["id"]
+                title = row["title"]
+                price = float(row["price"])
+                b = media.Book(id, title, price)
+                yield b
+
+    def save(self):
+        with open(self.path, "w") as f:
+            f.write("id,title,price\n")
+            for m in self.medias:
+                f.write(f"{m.id},{m.title},{m.price}\n")
+
 
 class BookPickleRepository(AbstractRepository):
 

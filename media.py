@@ -57,7 +57,7 @@ class Media:
         return f"Media: {self.id} {self.title} {self.price}"
 
     def __eq__(self, other):
-        return self.id == other.id
+        return self.id == other.id and self.title == other.title and self.price == other.price
 
     def __ne__(self, other):
         return not self.__eq__(other)

@@ -61,7 +61,7 @@ def my_range(nb):
         i += 1
 
 # Redéfinir les méthodes == et != dans media et tester
-# Dans un cart récupérer le __dict__
+# Dans un test, créer un cart et récupérer le __dict__ et l'afficher, eventuellement le modifier
 # Essayer de porter le repository.load en générateur
 
 
