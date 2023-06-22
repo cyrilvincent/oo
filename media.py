@@ -101,6 +101,7 @@ class Cart:
 
     def __init__(self):
         self.medias:List[Media] = []
+        self.is_validate = False
 
     def add(self, media: Media):
         self.medias.append(media)

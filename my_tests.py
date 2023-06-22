@@ -6,6 +6,7 @@ import csv
 import pickle
 import demo_singleton
 import repository
+import media_service as service
 
 
 class DemoTest(unittest.TestCase):
@@ -110,6 +111,20 @@ class DemoTest(unittest.TestCase):
         csv_repo = repository.BookCSVRepository("data/media/books2.csv")
         csv_repo.medias = pickle_repo.medias
         csv_repo.save()
+
+    def test_service_integration(self):
+        s = service.MediaService()
+        res = s.search("python")
+        self.assertTrue(len(res) > 0)
+        m = s.get_details(res[0].id)
+        self.assertIsNotNone(m)
+        s.add_media_to_cart(m)
+        cart = s.get_cart()
+        self.assertTrue(1, len(cart.medias))
+        res = s.validate_cart()
+        self.assertTrue(res)
+        s.pay()
+
 
 
 

@@ -19,10 +19,26 @@ class AbstractRepository(metaclass=abc.ABCMeta):
     def get_all(self) -> List[media.Media]:
         return self.medias
 
-    def get_by_id(self, id: str):
-        pass
+    def get_by_id(self, id: str) -> media.Media | None:
+        for m in self.medias:
+            if m.id == id:
+                return m
+        return None
 
-    # get_by_price get_by_title
+    def get_by_title(self, title:str) -> List[media.Media]:
+        res = []
+        for m in self.medias:
+            if title.upper() in m.title.upper():
+                res.append(m)
+        return res
+
+    def get_by_price(self, price: float) -> List[media.Media]:
+        res = []
+        for m in self.medias:
+            if m.price <= price:
+                res.append(m)
+        return res
+
 
     def add(self, m: media.Media):
         self.medias.append(m)
