@@ -60,6 +60,11 @@ def my_range(nb):
         yield i
         i += 1
 
+# Redéfinir les méthodes == et != dans media et tester
+# Dans un cart récupérer le __dict__
+# Essayer de porter le repository.load en générateur
+
+
 def infinite():
     i = 0
     while True:
