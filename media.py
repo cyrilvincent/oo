@@ -44,6 +44,7 @@ class Media:
         #     self.id = id
         # else:
         #     raise ValueError(f"Bad ISBN {id}")
+        self.id = id
         self.title = title
         self.price = price
         self.date = date
