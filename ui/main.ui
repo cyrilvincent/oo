@@ -6,35 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>985</width>
-    <height>670</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListView" name="listView">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>60</y>
-      <width>451</width>
-      <height>371</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="parserButton">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>480</y>
-      <width>93</width>
+      <x>330</x>
+      <y>140</y>
+      <width>111</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>Parse</string>
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>80</y>
+      <width>451</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>200</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
@@ -43,28 +56,28 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>985</width>
+     <width>800</width>
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="menuMain">
     <property name="title">
-     <string>File</string>
+     <string>Main</string>
     </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionClose"/>
+    <addaction name="actionToto"/>
+    <addaction name="actionTiti"/>
    </widget>
-   <addaction name="menuFile"/>
+   <addaction name="menuMain"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNew">
+  <action name="actionToto">
    <property name="text">
-    <string>New</string>
+    <string>Toto</string>
    </property>
   </action>
-  <action name="actionClose">
+  <action name="actionTiti">
    <property name="text">
-    <string>Close</string>
+    <string>Titi</string>
    </property>
   </action>
  </widget>
