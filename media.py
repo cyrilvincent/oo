@@ -6,6 +6,7 @@ import pickle
 import xml.dom.minidom as dom
 import jsonpickle
 import openpyxl
+import re
 
 
 @dataclass
@@ -38,7 +39,11 @@ class Media:
                  date: datetime.datetime = datetime.datetime.now(),
                  publisher: Publisher = Publisher("", ""),
                  authors: List[Author] = []):
-        self.id = id
+        self.regex = r"^\d{3}-\d-\d{2}-\d{6}-\d$"
+        # if re.match(self.regex, id):
+        #     self.id = id
+        # else:
+        #     raise ValueError(f"Bad ISBN {id}")
         self.title = title
         self.price = price
         self.date = date

@@ -137,6 +137,13 @@ class DemoTest(unittest.TestCase):
         medias = list(repo.get_by_title("python"))
         self.assertTrue(len(medias) > 0)
 
+    def test_regex(self):
+        isbn = "978-3-16-148410-0"
+        book = media.Book(isbn, "", 0)
+        with self.assertRaises(ValueError):
+            book = media.Book(isbn+"X", "", 0)
+
+
 
 
 
